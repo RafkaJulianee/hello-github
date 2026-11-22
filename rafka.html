@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAFKA — Studio Inovasi & Kreativitas Digital</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              400: '#2dd4bf',
+              500: '#06b6d4',
+              600: '#0891b2',
+              violet: '#6366f1',
+              fuchsia: '#d946ef',
+              dark: '#07090e',
+              card: '#0e131f'
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 4s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Glassmorphism & Neon Glow */
+    .glass-nav {
+      background: rgba(7, 9, 14, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-card {
+      background: rgba(14, 19, 31, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .glass-card:hover {
+      background: rgba(20, 27, 45, 0.85);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #06b6d4 75%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-border-btn {
+      position: relative;
+      background: linear-gradient(135deg, #06b6d4, #6366f1, #d946ef);
+      padding: 1px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* Ambient Glow Spotlights */
+    .glow-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #07090e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+
+<body class="bg-[#07090e] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white antialiased relative overflow-x-hidden">
+
+  <!-- Background Canvas Particle Effect -->
+  <canvas id="particlesCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- Ambient Glow Elements -->
+  <div class="glow-sphere w-[500px] h-[500px] bg-cyan-500 -top-40 -left-20 animate-pulse-slow"></div>
+  <div class="glow-sphere w-[600px] h-[600px] bg-purple-600 top-1/3 -right-40 animate-pulse-slow" style="animation-delay: 2s;"></div>
+  <div class="glow-sphere w-[450px] h-[450px] bg-indigo-500 bottom-10 left-10 animate-pulse-slow" style="animation-delay: 4s;"></div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#beranda" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-fuchsia-500 p-[1.5px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
+          <div class="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center font-display font-bold text-white text-lg">
+            R
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-xl tracking-wider text-white">RAFKA<span class="text-cyan-400">.</span></span>
+          <span class="text-[10px] tracking-widest uppercase text-slate-400 font-medium -mt-1">Studio & Labs</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda</a>
+        <a href="#layanan" class="hover:text-cyan-400 transition-colors">Layanan</a>
+        <a href="#portofolio" class="hover:text-cyan-400 transition-colors">Portofolio</a>
+        <a href="#keunggulan" class="hover:text-cyan-400 transition-colors">Keunggulan</a>
+        <a href="#harga" class="hover:text-cyan-400 transition-colors">Harga</a>
+        <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Right Action Button -->
+      <div class="hidden md:flex items-center gap-4">
+        <a href="#kontak" class="gradient-border-btn group">
+          <span class="block px-5 py-2.5 rounded-full bg-[#0c101a] text-xs uppercase tracking-wider font-bold text-white group-hover:bg-transparent transition-all duration-300">
+            Hubungi Kami <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden text-slate-300 hover:text-white p-2 text-xl focus:outline-none">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden bg-[#0a0f1c]/95 border-b border-slate-800 px-6 py-6 space-y-4">
+      <a href="#beranda" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">Beranda</a>
+      <a href="#layanan" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">Layanan</a>
+      <a href="#portofolio" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">Portofolio</a>
+      <a href="#keunggulan" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">Keunggulan</a>
+      <a href="#harga" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">Harga</a>
+      <a href="#faq" class="mobile-link block text-slate-300 hover:text-cyan-400 py-1 font-medium">FAQ</a>
+      <div class="pt-4 border-t border-slate-800">
+        <a href="#kontak" class="mobile-link block text-center w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold shadow-lg shadow-cyan-500/20">
+          Mulai Proyek Sekarang
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-28">
+
+    <!-- HERO SECTION -->
+    <section id="beranda" class="max-w-7xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 flex flex-col items-center text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-cyan-500/30 text-cyan-300 text-xs md:text-sm font-medium mb-8 backdrop-blur shadow-inner">
+        <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="font-semibold">Solusi Digital Masa Depan</span> &bull; <span>Powered by AI & Design Systems</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-5xl mb-6">
+        Mewujudkan Ide Brilian Menjadi <br class="hidden sm:inline" />
+        <span class="gradient-text">Karya Digital Kelas Dunia.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="max-w-2xl text-slate-400 text-base md:text-xl font-normal leading-relaxed mb-10">
+        Rafka Studio membantu bisnis, kreator, dan startup membangun landing page memukau, aplikasi web super cepat, serta otomatisasi cerdas yang melipatgandakan konversi.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
+        <a href="#portofolio" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-fuchsia-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-200">
+          Lihat Portofolio Karya <i class="fa-solid fa-arrow-trend-up ml-2"></i>
+        </a>
+        <a href="#kontak" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-slate-200 hover:text-white font-semibold text-sm hover:border-slate-500 transition-all duration-200 flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i> Konsultasi Gratis
+        </a>
+      </div>
+
+      <!-- Hero Visual / Floating Tech Preview Card -->
+      <div class="w-full max-w-5xl relative group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
+        
+        <div class="relative rounded-2xl bg-[#0b101c] border border-slate-800 shadow-2xl overflow-hidden p-4 sm:p-6 text-left">
+          <!-- Window Header Controls -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-6">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              <span class="text-xs text-slate-500 ml-2 font-mono hidden sm:inline">rafka-studio-v2.6.4 — high-performance engine</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-400">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <i class="fa-solid fa-circle text-[6px]"></i> Live Status: 100% Online
+              </span>
+            </div>
+          </div>
+
+          <!-- Interactive Grid Preview Inside Frame -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Stat 1 -->
+            <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Kecepatan Muat</span>
+                <i class="fa-solid fa-bolt text-amber-400"></i>
+              </div>
+              <div class="text-3xl font-display font-bold text-white">0.4<span class="text-xs text-cyan-400 ml-1">detik</span></div>
+              <p class="text-xs text-slate-400 mt-2">Optimalisasi Core Web Vitals 99/100 pada Google PageSpeed.</p>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Tingkat Konversi</span>
+                <i class="fa-solid fa-chart-line text-emerald-400"></i>
+              </div>
+              <div class="text-3xl font-display font-bold text-white">+285<span class="text-xs text-emerald-400 ml-1">%</span></div>
+              <p class="text-xs text-slate-400 mt-2">Peningkatan rata-rata interaksi audiens & pendaftaran pelanggan.</p>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Klien Puas</span>
+                <i class="fa-solid fa-award text-indigo-400"></i>
+              </div>
+              <div class="text-3xl font-display font-bold text-white">120<span class="text-xs text-fuchsia-400 ml-1">+ Brand</span></div>
+              <p class="text-xs text-slate-400 mt-2">Telah dipercaya di berbagai industri teknologi, edukasi, & ritel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Marquee / Brand Logos -->
+      <div class="mt-20 w-full">
+        <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-8">
+          Dipercaya oleh startup terkemuka & talenta inovatif
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-60 grayscale hover:grayscale-0 transition duration-300">
+          <div class="flex items-center gap-2 font-display text-lg font-bold text-slate-300 tracking-wider">
+            <i class="fa-solid fa-cube text-cyan-400"></i> NEXUS.AI
+          </div>
+          <div class="flex items-center gap-2 font-display text-lg font-bold text-slate-300 tracking-wider">
+            <i class="fa-solid fa-infinity text-indigo-400"></i> HYPERLOOP
+          </div>
+          <div class="flex items-center gap-2 font-display text-lg font-bold text-slate-300 tracking-wider">
+            <i class="fa-solid fa-shield-halved text-fuchsia-400"></i> CYBERVAULT
+          </div>
+          <div class="flex items-center gap-2 font-display text-lg font-bold text-slate-300 tracking-wider">
+            <i class="fa-solid fa-microchip text-emerald-400"></i> QUANTUM LAB
+          </div>
+          <div class="flex items-center gap-2 font-display text-lg font-bold text-slate-300 tracking-wider">
+            <i class="fa-solid fa-cloud-bolt text-amber-400"></i> VELOCE CLOUD
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYANAN SECTION -->
+    <section id="layanan" class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Layanan Unggulan</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-5">
+          Eksplorasi Solusi Digital yang Kami Bangun
+        </h2>
+        <p class="text-slate-400 text-base md:text-lg">
+          Kami menggabungkan keindahan estetika visual dengan fondasi rekayasa perangkat lunak modern untuk menciptakan pengalaman tanpa cela.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Service 1 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-black transition-all duration-300">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+            High-Impact Landing Page
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Landing page modern dirancang spesifik untuk storytelling brand Anda, responsif di semua perangkat, dengan animasi halus dan rasio konversi tinggi.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Mobile-first & SEO Optimized</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Ultralight & Fast Load</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Copywriting persuasif</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+            UI/UX & Design System
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Rancangan antarmuka pengguna yang memanjakan mata, mudah dipahami pengguna, dengan komponen design system modular yang siap dikembangkan.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-400"></i> Wireframing & Prototyping Figma</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-400"></i> Micro-interactions terarah</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-400"></i> Brand guidelines lengkap</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-fuchsia-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-fuchsia-300 transition-colors">
+            Integrasi AI & Automasi
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Hubungkan bisnis Anda dengan chatbot AI cerdas, integrasi webhook, CRM, dan pipeline otomatisasi yang memangkas waktu kerja berjam-jam.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-fuchsia-400"></i> Custom AI Assistant</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-fuchsia-400"></i> WhatsApp & Email Automation</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-fuchsia-400"></i> Integrasi API pihak ketiga</li>
+          </ul>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-black transition-all duration-300">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">
+            Full-Stack Web App
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Aplikasi web kustom berbasis framework modern (React, Next.js, Node.js) dengan backend kokoh, database andal, dan keamanan enterprise.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Dashboard admin interaktif</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sistem otentikasi aman</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> RESTful & GraphQL API</li>
+          </ul>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">
+            Audit Performa & Re-design
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Website Anda terasa lambat atau tampak kuno? Kami melakukan perombakan tampilan komprehensif dan percepatan load hingga maksimal.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Pembersihan script & kompresi aset</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Migrasi ke stack terkini</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Peningkatan UX usability score</li>
+          </ul>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+          <div class="w-14 h-14 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-black transition-all duration-300">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-3 group-hover:text-sky-300 transition-colors">
+            Deployment & Cloud DevOps
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            Konfigurasi domain custom, SSL, CDN global, continuous deployment (CI/CD), dan monitoring server uptime 24/7 tanpa repot.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 mb-6 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> Cloudflare, Vercel, & AWS</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> Zero-downtime deployment</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> Backup otomatis harian</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTOFOLIO SECTION -->
+    <section id="portofolio" class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Galeri Proyek</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-4">
+            Karya Terpilih Rafka
+          </h2>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2 mt-6 md:mt-0" id="portfolioFilter">
+          <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg bg-cyan-500 text-black text-xs font-bold transition">Semua</button>
+          <button data-filter="landing" class="filter-btn px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-bold transition">Landing Page</button>
+          <button data-filter="webapp" class="filter-btn px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-bold transition">Web App</button>
+          <button data-filter="ai" class="filter-btn px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-bold transition">AI Solution</button>
+        </div>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolioGrid">
+        <!-- Project 1 -->
+        <div class="portfolio-item group glass-card rounded-2xl overflow-hidden" data-category="landing">
+          <div class="h-52 bg-gradient-to-tr from-cyan-900/60 to-blue-900/30 relative flex items-center justify-center p-6 border-b border-slate-800/80 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-500" style="background-image: radial-gradient(circle at center, #06b6d4 1px, transparent 1px); background-size: 16px 16px;"></div>
+            <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 flex items-center justify-center text-3xl z-10 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-slate-900/80 text-cyan-400 border border-cyan-500/30">Landing Page</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">Veloce SaaS Platform</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Landing page produk analitik dengan grafis visual 3D interaktif dan funnel pendaftaran instan.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+              <span class="text-slate-500">Tailwind • Alpine.js</span>
+              <a href="#kontak" class="text-cyan-400 font-semibold hover:underline flex items-center gap-1">Pratinjau <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="portfolio-item group glass-card rounded-2xl overflow-hidden" data-category="webapp">
+          <div class="h-52 bg-gradient-to-tr from-purple-900/60 to-indigo-900/30 relative flex items-center justify-center p-6 border-b border-slate-800/80 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-500" style="background-image: radial-gradient(circle at center, #a855f7 1px, transparent 1px); background-size: 16px 16px;"></div>
+            <div class="w-16 h-16 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-400/30 flex items-center justify-center text-3xl z-10 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-slate-900/80 text-purple-400 border border-purple-500/30">Web App</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">Astra Dashboard ERP</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Sistem manajemen inventaris internal dan analitik penjualan real-time untuk 20+ cabang bisnis.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+              <span class="text-slate-500">React • Node • PostgreSQL</span>
+              <a href="#kontak" class="text-purple-400 font-semibold hover:underline flex items-center gap-1">Pratinjau <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="portfolio-item group glass-card rounded-2xl overflow-hidden" data-category="ai">
+          <div class="h-52 bg-gradient-to-tr from-emerald-900/60 to-teal-900/30 relative flex items-center justify-center p-6 border-b border-slate-800/80 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-500" style="background-image: radial-gradient(circle at center, #10b981 1px, transparent 1px); background-size: 16px 16px;"></div>
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center text-3xl z-10 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <span class="absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-slate-900/80 text-emerald-400 border border-emerald-500/30">AI Solution</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Rafka AI Auto-Support</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Agen layanan pelanggan berbasis LLM cerdas yang menjawab 95% pertanyaan teknis dalam 2 detik.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+              <span class="text-slate-500">OpenAI API • Vector DB</span>
+              <a href="#kontak" class="text-emerald-400 font-semibold hover:underline flex items-center gap-1">Pratinjau <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEUNGGULAN SECTION -->
+    <section id="keunggulan" class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="rounded-3xl bg-gradient-to-br from-slate-900 via-[#0e1424] to-[#080d19] border border-slate-800 p-8 sm:p-14 relative overflow-hidden">
+        <div class="glow-sphere w-96 h-96 bg-cyan-500/20 top-0 right-0"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+          <div>
+            <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Mengapa Rafka Studio?</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-6 leading-tight">
+              Standar Rekayasa Tinggi dengan Sentuhan Seni Modern.
+            </h2>
+            <p class="text-slate-400 text-base leading-relaxed mb-8">
+              Kami tidak sekadar membuat website yang berjalan, tetapi kami merancang identitas digital yang memikat, meninggalkan impresi mendalam, dan mendongkrak omzet bisnis Anda.
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-1">
+                  <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-sm">Kode Bersih & Bebas Bug</h4>
+                  <p class="text-slate-400 text-xs mt-1">Struktur kode semantik standar industri yang mudah dipelihara dan scalable.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-1">
+                  <i class="fa-solid fa-stopwatch"></i>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-sm">Pengerjaan Tepat Waktu</h4>
+                  <p class="text-slate-400 text-xs mt-1">Jadwal milestone transparan dengan sprint terukur, siap online sesuai deadline.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/30 flex items-center justify-center shrink-0 mt-1">
+                  <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-sm">Dukungan & Garansi Purnajual</h4>
+                  <p class="text-slate-400 text-xs mt-1">Pendampingan gratis pasca peluncuran untuk memastikan performa tetap prima.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Cards Showcase Column -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-6 rounded-2xl bg-slate-950/70 border border-slate-800 text-center flex flex-col items-center justify-center">
+              <i class="fa-solid fa-mobile-screen-button text-cyan-400 text-3xl mb-3"></i>
+              <span class="text-white font-bold text-sm">100% Responsif</span>
+              <span class="text-slate-400 text-xs mt-1">HP, Tablet & Laptop</span>
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-950/70 border border-slate-800 text-center flex flex-col items-center justify-center">
+              <i class="fa-solid fa-lock text-indigo-400 text-3xl mb-3"></i>
+              <span class="text-white font-bold text-sm">Keamanan Enkripsi</span>
+              <span class="text-slate-400 text-xs mt-1">SSL & Proteksi Data</span>
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-950/70 border border-slate-800 text-center flex flex-col items-center justify-center">
+              <i class="fa-solid fa-magnifying-glass-chart text-fuchsia-400 text-3xl mb-3"></i>
+              <span class="text-white font-bold text-sm">SEO Friendly</span>
+              <span class="text-slate-400 text-xs mt-1">Mudah diindeks Google</span>
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-950/70 border border-slate-800 text-center flex flex-col items-center justify-center">
+              <i class="fa-solid fa-infinity text-emerald-400 text-3xl mb-3"></i>
+              <span class="text-white font-bold text-sm">Revisi Fleksibel</span>
+              <span class="text-slate-400 text-xs mt-1">Hingga Anda Puas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="harga" class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Investasi Cerdas</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4">
+          Pilihan Paket Transparan
+        </h2>
+        <p class="text-slate-400 text-base">
+          Pilih paket yang paling sesuai dengan target dan tahapan bisnis Anda. Tanpa biaya tersembunyi.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <!-- Plan 1 -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-display font-bold text-xl text-white">Starter Web</h3>
+              <span class="px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">UMKM / Personal</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Cocok untuk personal branding, portofolio, atau landing page pengenalan produk tunggal.</p>
+            <div class="mb-6">
+              <span class="text-3xl font-display font-extrabold text-white">Rp 750.000</span>
+              <span class="text-xs text-slate-500">/ proyek</span>
+            </div>
+
+            <ul class="text-xs text-slate-300 space-y-3 mb-8">
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> 1 Halaman Landing Page Eksklusif</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Desain Responsif Mobile & Desktop</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Tombol Integrasi WhatsApp & Medsos</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Waktu Pengerjaan: 2-3 Hari</li>
+              <li class="flex items-center gap-2.5 text-slate-500"><i class="fa-solid fa-xmark"></i> Form Database Khusus</li>
+            </ul>
+          </div>
+          <a href="#kontak" class="w-full py-3 rounded-xl border border-slate-700 hover:border-cyan-400 text-white font-semibold text-center text-xs tracking-wider uppercase transition">
+            Pilih Paket Starter
+          </a>
+        </div>
+
+        <!-- Plan 2 (Featured) -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between relative border-cyan-500/50 shadow-2xl shadow-cyan-500/10">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-[11px] font-bold tracking-wider uppercase shadow">
+            Paling Populer 🔥
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-4 mt-2">
+              <h3 class="font-display font-bold text-xl text-white">Pro Business</h3>
+              <span class="px-2.5 py-1 rounded text-[11px] font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Bisnis & Startup</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Pilihan terlengkap untuk mendongkrak penjualan dan kredibilitas bisnis modern.</p>
+            <div class="mb-6">
+              <span class="text-3xl font-display font-extrabold text-white">Rp 1.850.000</span>
+              <span class="text-xs text-slate-500">/ proyek</span>
+            </div>
+
+            <ul class="text-xs text-slate-300 space-y-3 mb-8">
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Hingga 5 Halaman / Section Modular</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Animasi Interaktif & Custom UI/UX</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Form Lead Interaktif + Notifikasi Email</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Optimasi Kecepatan & SEO On-Page</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Gratis Domain .com & Hosting 1 Thn</li>
+            </ul>
+          </div>
+          <a href="#kontak" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 text-white font-bold text-center text-xs tracking-wider uppercase shadow-lg shadow-cyan-500/30 hover:scale-[1.02] transition">
+            Mulai Sekarang
+          </a>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-display font-bold text-xl text-white">Custom & AI</h3>
+              <span class="px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">Enterprise</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Arsitektur kustom skala penuh dengan integrasi kecerdasan buatan dan database kompleks.</p>
+            <div class="mb-6">
+              <span class="text-3xl font-display font-extrabold text-white">Kustom</span>
+              <span class="text-xs text-slate-500">/ konsultasi</span>
+            </div>
+
+            <ul class="text-xs text-slate-300 space-y-3 mb-8">
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Full-Stack Web Application</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Integrasi AI Bot & LLM Agent</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Integrasi Payment Gateway (Midtrans/Xendit)</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Dashboard Analitik Manajemen</li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Dedicated Support 24/7</li>
+            </ul>
+          </div>
+          <a href="#kontak" class="w-full py-3 rounded-xl border border-slate-700 hover:border-cyan-400 text-white font-semibold text-center text-xs tracking-wider uppercase transition">
+            Hubungi Konsultan
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Ulasan Nyata</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-4">
+          Apa Kata Mereka Tentang Kami
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+            "Landing page yang dibuatkan Rafka benar-benar mengubah tingkat konversi iklan kami. Desainnya futuristik, super ringan, dan sales meningkat drastis!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center font-bold text-black text-sm">
+              DA
+            </div>
+            <div>
+              <h5 class="text-white font-bold text-sm">Dimas Arisandi</h5>
+              <p class="text-slate-500 text-xs">Founder, NextMedia Studio</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+            "Pelayanan sangat responsif dan solutif. Ide kami dieksekusi bahkan melebihi ekspektasi visual awal. Sangat direkomendasikan!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-fuchsia-400 to-rose-500 flex items-center justify-center font-bold text-black text-sm">
+              SL
+            </div>
+            <div>
+              <h5 class="text-white font-bold text-sm">Siti Lestari</h5>
+              <p class="text-slate-500 text-xs">Marketing Lead, ZenFlora ID</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">
+            "Proses pengerjaan cepat dan terstruktur. Nilai tambah terbesarnya adalah pemahaman mendalam tentang estetika UI kekinian. Mantap Rafka!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center font-bold text-black text-sm">
+              RZ
+            </div>
+            <div>
+              <h5 class="text-white font-bold text-sm">Reza Pratama</h5>
+              <p class="text-slate-500 text-xs">Product Manager, FinTech Hub</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION ACCORDION -->
+    <section id="faq" class="py-20 max-w-4xl mx-auto px-6 relative">
+      <div class="text-center mb-14">
+        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Tanya Jawab</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-4">
+          Pertanyaan yang Sering Diajukan
+        </h2>
+      </div>
+
+      <div class="space-y-4" id="faqAccordion">
+        <!-- FAQ 1 -->
+        <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold text-white text-sm sm:text-base">Berapa lama proses pengerjaan satu website?</h4>
+            <i class="fa-solid fa-chevron-down text-cyan-400 transition-transform duration-300"></i>
+          </div>
+          <p class="faq-answer text-slate-400 text-xs sm:text-sm mt-3 hidden leading-relaxed border-t border-slate-800/80 pt-3">
+            Untuk paket landing page standar umumnya membutuhkan waktu 2 hingga 4 hari kerja setelah materi konten (teks & gambar) disepakati. Untuk aplikasi web custom atau integrasi AI membutuhkan waktu 1-3 minggu.
+          </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold text-white text-sm sm:text-base">Apakah saya bisa meminta revisi desain?</h4>
+            <i class="fa-solid fa-chevron-down text-cyan-400 transition-transform duration-300"></i>
+          </div>
+          <p class="faq-answer text-slate-400 text-xs sm:text-sm mt-3 hidden leading-relaxed border-t border-slate-800/80 pt-3">
+            Tentu saja! Kami memberikan kesempatan revisi hingga Anda benar-benar puas dengan hasil akhirnya sebelum website resmi dipublikasikan secara live.
+          </p>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold text-white text-sm sm:text-base">Bagaimana jika saya belum memiliki domain dan hosting?</h4>
+            <i class="fa-solid fa-chevron-down text-cyan-400 transition-transform duration-300"></i>
+          </div>
+          <p class="faq-answer text-slate-400 text-xs sm:text-sm mt-3 hidden leading-relaxed border-t border-slate-800/80 pt-3">
+            Tenang, tim Rafka Studio siap membantu Anda memilihkan nama domain terbaik dan menyiapkannya dari awal hingga website bisa langsung diakses publik dengan aman (HTTPS/SSL).
+          </p>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold text-white text-sm sm:text-base">Apakah website nantinya bisa saya edit sendiri?</h4>
+            <i class="fa-solid fa-chevron-down text-cyan-400 transition-transform duration-300"></i>
+          </div>
+          <p class="faq-answer text-slate-400 text-xs sm:text-sm mt-3 hidden leading-relaxed border-t border-slate-800/80 pt-3">
+            Ya! Kami menyediakan dokumentasi praktis serta opsi CMS ramah pemula jika Anda ingin memperbarui teks, gambar portofolio, atau artikel blog di kemudian hari.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK & CTA SECTION -->
+    <section id="kontak" class="py-24 max-w-7xl mx-auto px-6 relative">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center glass-card rounded-3xl p-8 sm:p-14 border-slate-800">
+        <div>
+          <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">Siap Melangkah?</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-6 leading-tight">
+            Mulai Diskusi Proyek Impian Anda Hari Ini.
+          </h2>
+          <p class="text-slate-400 text-base leading-relaxed mb-8">
+            Ceritakan ide atau tantangan yang dihadapi brand Anda. Kami siap merancang solusi digital terbaik yang tepat sasaran dan berkelas.
+          </p>
+
+          <div class="space-y-4 text-sm text-slate-300">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500">Email Langsung</p>
+                <p class="font-semibold text-white">halo@rafka.studio</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500">WhatsApp Fast Response</p>
+                <p class="font-semibold text-white">+62 812-3456-7890</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500">Lokasi Studio</p>
+                <p class="font-semibold text-white">Jakarta & Bandung, Indonesia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Form -->
+        <div class="rounded-2xl bg-slate-950/80 border border-slate-800 p-6 sm:p-8">
+          <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Nama Lengkap</label>
+              <input type="text" id="senderName" required placeholder="Contoh: Rafka Pratama" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Alamat Email / WhatsApp</label>
+              <input type="text" id="senderContact" required placeholder="nama@email.com / 08123xxxx" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Pilihan Kebutuhan</label>
+              <select id="projectType" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 focus:outline-none focus:border-cyan-400 text-sm transition">
+                <option value="Landing Page">Landing Page Profesional</option>
+                <option value="UI/UX Design">UI/UX & Desain Sistem</option>
+                <option value="Aplikasi Web">Pengembangan Aplikasi Web Custom</option>
+                <option value="Integrasi AI">Solusi Otomasi & AI Chatbot</option>
+                <option value="Lainnya">Konsultasi Khusus</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Ringkasan Ide Proyek</label>
+              <textarea id="projectDetails" rows="4" required placeholder="Ceritakan fitur atau tujuan utama website Anda..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm transition"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-fuchsia-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-95 transition-all duration-200">
+              Kirim Pesan Sekarang <i class="fa-solid fa-paper-plane ml-2"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-3 bg-emerald-950/90 text-emerald-200 border border-emerald-500/40 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-md">
+      <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+      <div>
+        <h5 class="text-xs font-bold text-white">Pesan Berhasil Terkirim!</h5>
+        <p class="text-[11px] text-slate-300" id="toastMessage">Tim Rafka Studio akan segera menghubungi Anda dalam 1x24 jam.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-[#06080e] relative z-10 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-500 p-[1px]">
+          <div class="w-full h-full bg-[#090d16] rounded-[7px] flex items-center justify-center font-display font-bold text-white text-xs">
+            R
+          </div>
+        </div>
+        <span class="font-display font-bold text-white tracking-wider text-sm">RAFKA STUDIO</span>
+        <span class="text-slate-600">|</span>
+        <span>&copy; <span id="currentYear"></span> Seluruh hak cipta dilindungi.</span>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="flex items-center gap-5 text-base">
+        <a href="https://github.com" target="_blank" rel="noreferrer" class="hover:text-cyan-400 transition-colors" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noreferrer" class="hover:text-cyan-400 transition-colors" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="hover:text-cyan-400 transition-colors" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noreferrer" class="hover:text-cyan-400 transition-colors" title="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Set dynamic current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Mobile Hamburger Menu Toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // FAQ Accordion Toggle
+    function toggleFaq(card) {
+      const answer = card.querySelector('.faq-answer');
+      const icon = card.querySelector('.fa-chevron-down');
+      const isHidden = answer.classList.contains('hidden');
+
+      // Close all other faqs
+      document.querySelectorAll('.faq-answer').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.faq-item .fa-chevron-down').forEach(el => el.style.transform = 'rotate(0deg)');
+
+      if (isHidden) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Portfolio Filter Tab Logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset button states
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-cyan-500', 'text-black');
+          b.classList.add('bg-slate-900', 'text-slate-400', 'border', 'border-slate-800');
+        });
+
+        // Activate clicked button
+        btn.classList.add('bg-cyan-500', 'text-black');
+        btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
+
+        const filter = btn.getAttribute('data-filter');
+
+        portfolioItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Interactive Particles Background Canvas
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.color = Math.random() > 0.5 ? 'rgba(6, 182, 212, 0.4)' : 'rgba(99, 102, 241, 0.4)';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      const numberOfParticles = Math.floor((canvas.width * canvas.height) / 18000);
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Form Submission & Interactive Toast
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const originalText = submitBtn.innerHTML;
+      const name = document.getElementById('senderName').value;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengirim...`;
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Terkirim!`;
+
+        const toast = document.getElementById('toastNotification');
+        const toastMsg = document.getElementById('toastMessage');
+        toastMsg.textContent = `Terima kasih ${name}, tim Rafka Studio akan segera menghubungi Anda.`;
+
+        toast.classList.remove('translate-y-32', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        document.getElementById('contactForm').reset();
+
+        setTimeout(() => {
+          submitBtn.innerHTML = originalText;
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-32', 'opacity-0');
+        }, 4500);
+      }, 900);
+    }
+  </script>
+</body>
+</html>
